@@ -13,10 +13,11 @@ public class QuerysBD {
 		try {
 			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
-			String sentencia = "SELECT idusuario FROM usuario where nocuenta = '" + boleta + "' and contra = '" + pass + "'";
+			String sentencia = "SELECT idusuario FROM usuario where idusuario = '" + boleta + "' and contrasena = '" + pass + "'";
 			//System.out.println(sentencia);
 			ResultSet tuplas = basedatos.consulta(sentencia);
 			String aux = "";
+			
 			while (tuplas.next())
 				return tuplas.getString(1);
 			if(aux.equals(""))
@@ -27,23 +28,6 @@ public class QuerysBD {
 		return null;
 	}
 	
-	public static String getIdNameUser(String boleta){
-		try {
-			ConexionBD basedatos = new ConexionBD();
-			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
-			String sentencia = "SELECT nombre FROM usuario where nocuenta = '" + boleta + "'";
-			System.out.println(sentencia);
-			ResultSet tuplas = basedatos.consulta(sentencia);
-			String aux = "";
-			while (tuplas.next())
-				return tuplas.getString(1);
-			if(aux.equals(""))
-				return "null";
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	public static String getIdUsuario(String boleta){
 		try {
@@ -94,20 +78,10 @@ public class QuerysBD {
 		ConexionBD basedatos = new ConexionBD();
 		basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 		
-		String sentencia = "INSERT INTO usuario(correo, nocuenta, nombre, contra) VALUES('" 
+		String sentencia = "INSERT INTO usuario(correo, idusuario, nombre, contrasena) VALUES('" 
 		+ campo[0] + "', '" + campo[1] + "', '" + campo[2] + "', '" + campo[3] + "')";
 		System.out.println(sentencia);
 		return basedatos.insertar(sentencia);
-	}
-	
-	public static boolean agregarCuenta(Cuenta cuenta){
-		ConexionBD basedatos = new ConexionBD();
-		basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
-		
-		String sentencia = "INSERT INTO cuentasDisponibles(nombre, identificador, tipo, subtipo) VALUES('" 
-		+ cuenta.getNombre() + "', '" + cuenta.getID() + "', '" + cuenta.getTipo() + "', '" + cuenta.getSubTipo() + "')";
-		System.out.println(sentencia);
-		return basedatos.insertar(sentencia);	
 	}
 	
 	public static String[] getNombresCuentas(){
