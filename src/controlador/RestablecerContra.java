@@ -1,25 +1,31 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.UUID;
+
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import modelo.GoogleMail;
 import modelo.QuerysBD;
 
 /**
- * Servlet implementation class RegistroUsuario
+ * Servlet implementation class RestablecerContra
  */
-@WebServlet("/RegistroUsuario")
-public class RegistroUsuario extends HttpServlet {
+@WebServlet("/RestablecerContra")
+public class RestablecerContra extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public RegistroUsuario() {
+    public RestablecerContra() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -35,20 +41,17 @@ public class RegistroUsuario extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String boleta = request.getParameter("boleta");
 		
-		
-		String campos[] = new String[4];
-		campos[0] = request.getParameter("email");
-		campos[1] = request.getParameter("boleta");
-		campos[2] = request.getParameter("nombre");
-		campos[3] = request.getParameter("clave1");
-		
-		System.out.println(campos[0]);
-		
-		QuerysBD mysql = new QuerysBD();
-		
-		mysql.registrarUsuario(campos);
-		
+		String [] campo = QuerysBD.getDatos(boleta);
+		System.out.println(campo[1] + " " + campo[3]);
+		try {
+			GoogleMail.Send("garo.edgar21", "*Edgar9521*", campo[1], "Proyecto ECOCAMBIO", "Tu contraseña es la siguiente: " + campo[3]);
+			System.out.println("Se envio el correo");
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.sendRedirect("Inicio.html");
 	}
 

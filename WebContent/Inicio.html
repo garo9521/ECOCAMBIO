@@ -46,7 +46,7 @@
 		
 		                </span>
 		            </label>
-		            <button class="btn btn-theme btn-block" href="home.html" type="submit"><i class="fa fa-lock"></i>Iniciar sesión</button>
+		            <button class="btn btn-theme btn-block" href="home.html" type="submit">Iniciar sesión</button>
 		            <hr>
 		            
 		            <!--
@@ -64,30 +64,32 @@
 		            </div>
 		
 		        </div>
+		    </form>
 		
 		          <!-- Modal -->
-		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-		              <div class="modal-dialog">
-		                  <div class="modal-content">
-		                      <div class="modal-header">
-		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                          <h4 class="modal-title">Forgot Password ?</h4>
-		                      </div>
-		                      <div class="modal-body">
-		                          <p>Enter your e-mail address below to reset your password.</p>
-		                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-		
-		                      </div>
-		                      <div class="modal-footer">
-		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-		                          <button class="btn btn-theme" type="button">Submit</button>
-		                      </div>
-		                  </div>
-		              </div>
-		          </div>
+		          <form class="form-login" action="RestablecerContra" method = "POST" >
+			          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+			              <div class="modal-dialog">
+			                  <div class="modal-content">
+			                      <div class="modal-header">
+			                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                          <h4 class="modal-title">¿Olvidaste tu contraseña?</h4>
+			                      </div>
+			                      <div class="modal-body">
+			                          <p>Ingresa tu numero de boleta.</p>
+			                          <input type="text" name="boleta" placeholder="Boleta" autocomplete="off" class="form-control placeholder-no-fix">
+			
+			                      </div>
+			                      <div class="modal-footer">
+			                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+			                          <button class="btn btn-theme" type="submit">Enviar</button>
+			                      </div>
+			                  </div>
+			              </div>
+			          </div>
+			      </form>
 		          <!-- modal -->
-		
-		      </form>	  	
+		  	
 	  	
 	  	</div>s
 	  </div>

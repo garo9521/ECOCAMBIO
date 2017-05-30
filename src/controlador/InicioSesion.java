@@ -37,30 +37,21 @@ public class InicioSesion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		QuerysBD mysql = new QuerysBD();
+		
 		String boleta = request.getParameter("boleta");
 		String pass = request.getParameter("password");
 		
-		String usuario = mysql.validarUsuario(boleta,pass);
+		String usuario = QuerysBD.validarUsuario(boleta,pass);
 		
-		//Jalamos el usuario y su tipo, si es nulo no existe
-		if(usuario.equals("null"))
-		{
-			response.sendRedirect("Error.html");
-		}
-		else
-		{
-			//Jalamos los registros que ya tiene el usuario, y los metemos en un pojo para llevarnos por la sesion
-			// igual pongo su usuario en la sesion, para con JSP construir el home
-			// creo que lo unico que varia es si el usuario puede o no agregar una cuenta
+		if(usuario.equals("null")){
+			response.sendRedirect("Inicio.html");
+		}else{
 			HttpSession session = request.getSession();
-			
-			//proponrgo que el metodo regrese un arrayList de registros del usuario para que mas adelante los muestre en JSP y cuando
-			//se selecciona un registro a usar o a modificar el servlet de las operaciones lo encuentre rapido y agregue etc..
-			usuario = boleta;
-			//recorreel hashMap con el iterator para sacar los objetos
-			session.setAttribute("usuario", usuario);
+			String [] campo = QuerysBD.getDatos(boleta);
 			session.setAttribute("boleta", boleta);
+			session.setAttribute("nombre", campo[0]);
+			session.setAttribute("email", campo[1]);
+			session.setAttribute("puntos", campo[2]);
 			response.sendRedirect("home.jsp");
 			
 		}

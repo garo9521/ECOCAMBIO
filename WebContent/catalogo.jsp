@@ -1,3 +1,4 @@
+<%@page import="modelo.QuerysBD"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -37,7 +38,29 @@
   </head>
 
   <body>
+  <style>
+table.GeneratedTable {
+  width: 100%;
+  background-color: #ffffff;
+  border-collapse: collapse;
+  border-width: 5px;
+  border-color: #302013;
+  border-style: solid;
+  color: #000000;
+}
 
+table.GeneratedTable td, table.GeneratedTable th {
+  border-width: 5px;
+  border-color: #302013;
+  border-style: solid;
+  padding: 3px;
+}
+
+table.GeneratedTable thead {
+  background-color: #007f00;
+}
+</style>
+  
     <section id="container" >
       <header class="header black-bg" bgcolor = "#007f00">
             <div class="sidebar-toggle-box">
@@ -99,35 +122,32 @@
       <!--main content start-->
      <section id="main-content">
           <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-angle-right"></i>Hola <%=session.getAttribute("nombre")%></h3>
+          	<h3><i class="fa fa-angle-right"></i>Productos en nuestra sistema.</h3>
           	<div class="row mt">
           		<div class="col-lg-12">
 
-              <h4 style="color:black">
-                Bienvenido al sistema del proyecto ECOCAMBIO.
-              </h4>
-              <br>
-          		<h4 style="color:black">
-                Informacion de su cuenta:
-              </h4>
-              <br>
-              <h4 style="color:black">
-                Boleta: <%=session.getAttribute("boleta")%>
-              </h4>
-              <br>
-              <h4 style="color:black">
-                Correo: <%=session.getAttribute("email")%>
-              </h4>
-              <br>
-              <h4 style="color:black">
-                Puntos: <%=session.getAttribute("puntos")%>
-              </h4>
-              <br>
-              <button type="button" class="btn btn-theme">
-                  <a data-toggle="modal" href="home.jsp#myModal">
-                      <span style="color:white">Modificar informacion</span>
-                  </a>
-              </button>
+              	<section id="unseen">
+                      <table class="GeneratedTable">
+                        <thead>
+                        <tr>
+                            <th align = "center" style="width:600px; font-size:25px;"> Producto </th>
+                            <th align = "center" style="width:300px; font-size:25px;"> Costo </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                        String [][] productos = QuerysBD.Productos();
+      	               	for(int i = 0; i < productos.length; i++){
+                     		out.print("<tr>");
+                     		out.print("<td align = 'center' style='font-size:25px;'>" + productos[i][0]+ "</td>");
+                     		out.print("<td align = 'center' style='font-size:25px;'>" + productos[i][1]+ "</td>");
+                     		out.print("<td align = 'center'> <a class='btn btn-theme' href = 'ComprarProducto?costo=" + productos[i][1] + "&nombre=" + productos[i][0] + "&boleta=" + session.getAttribute("boleta") + "' >comprar</a></td>");
+                     		out.print("</tr>");
+                     	}
+                        %>
+                        </tbody>
+                    </table>
+                    </section>
 
           		</div>
           	</div>
